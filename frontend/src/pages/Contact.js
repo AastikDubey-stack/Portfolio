@@ -3,6 +3,10 @@ import { Mail, Phone, Linkedin, Instagram, Send } from 'lucide-react';
 import ScrollReveal from '../components/ScrollReveal';
 import { portfolioData } from '../mockData';
 import { useToast } from '../hooks/use-toast';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,23 +15,61 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
   const { toast } = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrors({});
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Mock successful submission
-    toast({
-      title: "Message sent successfully!",
-      description: "Thank you for your message. I'll get back to you soon.",
-    });
-    
-    setFormData({ name: '', email: '', message: '' });
-    setIsSubmitting(false);
+    try {
+      const response = await axios.post(`${API}/contact`, formData);
+      
+      if (response.data.success) {
+        toast({
+          title: "Message sent successfully!",
+          description: response.data.message,
+        });
+        
+        setFormData({ name: '', email: '', message: '' });
+      }
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      
+      if (error.response?.status === 400) {
+        // Validation errors
+        const errorMessage = error.response.data.detail || 'Please check your input and try again.';
+        toast({
+          title: "Validation Error",
+          description: errorMessage,
+          variant: "destructive",
+        });
+      } else if (error.response?.status === 429) {
+        // Rate limiting
+        toast({
+          title: "Too Many Requests",
+          description: "Please wait before submitting another message.",
+          variant: "destructive",
+        });
+      } else if (error.response?.status >= 500) {
+        // Server errors
+        toast({
+          title: "Server Error",
+          description: "There was an error submitting your message. Please try again later.",
+          variant: "destructive",
+        });
+      } else {
+        // Network or other errors
+        toast({
+          title: "Connection Error",
+          description: "Please check your internet connection and try again.",
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
