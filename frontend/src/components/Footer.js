@@ -24,7 +24,7 @@ const Footer = () => {
     <footer className="bg-white border-t border-gray-100 py-8 mt-20">
       <div className="max-w-7xl mx-auto px-6 text-center">
         <p className="text-gray-600 text-sm">
-          © 2025 Aastik A Dubey | Built with purpose and place in mind.
+          © 2025 Aastik Dubey | Built with purpose and place in mind.
         </p>
         
         {/* Back to Top Button */}
