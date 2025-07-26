@@ -171,6 +171,9 @@ async def get_contact_messages():
     """Get all contact messages (for future admin use)"""
     try:
         messages = await db.contact_messages.find().sort("timestamp", -1).to_list(100)
+        # Remove MongoDB _id field from each message to avoid serialization issues
+        for message in messages:
+            message.pop('_id', None)
         return {"messages": messages}
     except Exception as e:
         logger.error(f"Error fetching contact messages: {str(e)}")
