@@ -1,0 +1,35 @@
+{
+  "name": "aastik-dubey-portfolio",
+  "version": "1.0.0",
+  "description": "Professional architecture portfolio for Aastik Dubey",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "frontend": "cd frontend && npm start",
+    "backend": "cd backend && uvicorn server:app --reload",
+    "build": "cd frontend && npm run build",
+    "install-all": "npm install && cd frontend && npm install && cd ../backend && pip install -r requirements.txt"
+  },
+  "keywords": [
+    "architecture",
+    "portfolio",
+    "react",
+    "fastapi",
+    "mongodb",
+    "professional"
+  ],
+  "author": "Aastik Dubey",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aastikdubey/portfolio"
+  },
+  "homepage": "https://aastikdubey.com",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}
