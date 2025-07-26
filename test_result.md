@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the portfolio backend API endpoints with comprehensive validation including contact form, portfolio data, status checks, error handling, and database integration"
+user_problem_statement: "Test the Aastik Dubey portfolio website frontend comprehensively including homepage, contact form, navigation, project details, responsive design, and backend integration"
 
 backend:
   - task: "Contact Form API Implementation"
