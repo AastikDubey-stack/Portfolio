@@ -194,7 +194,7 @@ async def get_portfolio_data():
         
         # If no data in database, return mock data structure
         mock_data = {
-            "name": "AASTIK A DUBEY",
+            "name": "AASTIK DUBEY",
             "tagline": "Architect | Urban Thinker | Researcher in Culturally Responsive Design",
             "email": "aastikadubey.1@gmail.com",
             "phone": "+91 74393 22488",
