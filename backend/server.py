@@ -125,10 +125,12 @@ async def submit_contact_form(contact_data: ContactMessageCreate, request: Reque
         # Check for rate limiting (simple implementation)
         client_ip = request.client.host
         
-        # Check if there's a recent submission from the same IP
+        # Check if there's a recent submission from the same IP (within 5 minutes)
+        from datetime import timedelta
+        five_minutes_ago = datetime.utcnow() - timedelta(minutes=5)
         recent_submission = await db.contact_messages.find_one({
             "ip_address": client_ip,
-            "timestamp": {"$gte": datetime.utcnow().replace(minute=datetime.utcnow().minute - 5)}
+            "timestamp": {"$gte": five_minutes_ago}
         })
         
         if recent_submission:
