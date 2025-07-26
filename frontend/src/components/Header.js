@@ -26,7 +26,7 @@ const Header = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link to="/" className="text-lg font-medium text-gray-900 hover:text-[#C1440E] transition-colors">
-            AASTIK A DUBEY
+            AASTIK DUBEY
           </Link>
 
           {/* Desktop Navigation */}
